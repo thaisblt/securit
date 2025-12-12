@@ -1,0 +1,198 @@
+/* Reset des marges et paddings par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+/* Header */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;  /* pour respirer */
+    background-color: white; /* ou la couleur que tu veux */
+}
+
+.img_header {
+    height: 100px ;
+    width: 100px;
+}
+
+.img_logo {
+    height: 150px;
+    width: 150px;
+}
+
+.icone_deconnexion {
+    height: 75px;
+    width: 75px;
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* body */
+body {
+    background-color: white; /* gris clair */
+}
+
+/* Fond de la pages de log (body)*/
+.pages_log {
+    display: flex;
+    justify-content: center;   /* centre horizontalement */
+    align-items: center;       /* centre verticalement */
+    height: 100vh;             /* 100% de la hauteur de la fenêtre */
+    background-color: white; /* gris clair */
+}
+
+/* Container principal */
+.container {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;   /* aligne les enfants en colonne */
+    align-items: center;      /* centre horizontalement les enfants */
+    width: 320px;
+}
+
+/* Logo */
+.container .logo img {
+    width: 120px;
+    margin-bottom: 30px;
+}
+
+/* Labels */
+.container label {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Inputs */
+.container input.champs {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #575DFB;
+    font-size: 14px;
+}
+
+/* Style quand on clique dans un input */
+.container input.champs:focus {
+    outline: none;                 /* enlève le contour par défaut */
+    border: 2px solid #575DFB;     /* bord violet */
+    box-shadow: 0 0 4px #575DFB66; /* léger glow violet (optionnel) */
+}
+
+
+/* Wrapper pour input + icône */
+.input-icon {
+    position: relative;
+    width: 100%;
+}
+
+/* L’input prend toute la largeur */
+.input-icon input {
+    width: 100%;
+    padding-right: 35px; /* espace pour l’icône */
+}
+
+/* Positionnement du SVG */
+.icon-lock {
+    position: absolute;
+    right: 10px;    /* distance du bord droit */
+    top: 50%;
+    transform: translateY(-50%); /* centre verticalement */
+    pointer-events: none;        /* le SVG ne bloque pas le clic sur l’input */
+}
+
+
+/* Bouton */
+.container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #575DFB; /* couleur principale */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Bouton input*/
+.bouton {
+    width: 100%;
+    padding: 12px;
+    background-color: #575DFB; /* couleur principale */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.container button:hover {
+    background-color: #4347c9;
+}
+
+/* Liens éventuels */
+.container a {
+    margin-top: 15px;
+    color: #575DFB;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+/* Infos en cas d'échecs */
+.echec {
+    text-decoration: underline;
+    color: red;
+    font-size: 11px;
+    margin-bottom: 15px;
+}
+
+/* Instructions à suivre */
+.instruction {
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.info_precise {
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+    color: gray;
+    font-size: 13px;
+}
+
+.info_affichee {
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+    color: rgb(97, 97, 97);
+    font-size: 15px;
+}
+
+/* Instructions à suivre */
+.titres_pages {
+    margin-bottom: 25px;
+    margin-left: 100px;
+    font-size: medium;
+    font-weight: bold;
+}

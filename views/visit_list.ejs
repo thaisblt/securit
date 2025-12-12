@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard</title>
+   <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <div class="avatar">
+            <a href="/visit_list">
+                <img class="img_header" src="/images/avatar.jpg" alt="Avatar Lambda">
+            </a>
+            <p class="info_affichee" ><%= name %></p>
+        </div>
+        <a href="/visit_list">
+            <img class="img_logo" src="/images/securit_logo.png" alt="Logo Securit">
+        </a>
+        <a href="/">
+            <img class="icone_deconnexion" src="/images/icone_fleche_deco.png" alt="Logo Deconnexion">
+        </a>
+    </header><br>
+
+
+    <p class="titres_pages">
+        Visites
+    </p>
+
+    <div>    <!-- Block en ligne sous le header -->
+
+        <!-- Barre de recherche -->
+        <!-- + pour ajouter inspection -->
+        <a href="/new_visit">
+            <img class="logo_plus" src="/images/logo_plus.png" alt="Ajouter">
+        </a>
+
+    </div>
+
+    <div>
+        <!-- tableau date et entreprise avec icone pour modifier -->
+
+    </div>
+    
+</body>
+</html>

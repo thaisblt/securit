@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>login</title>
+   <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="pages_log">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/securit_logo.png" alt="Logo Securit">
+        </a>
+
+        <form method='POST' action="/check_login" >
+            <label>Email <br>
+                <input type="email" placeholder="abc@exemple.com" name="email" required class="champs">
+            </label>
+
+            <label>Mot de passe
+                <div class="input-icon">
+                    <input type="password" placeholder="Mot de passe" name="password" required class="champs">
+                </div>
+            </label>
+
+            <p class="echec"><%= error_message %></p>
+
+            <input class="bouton" type="submit" value ="continuer">
+
+        </form>
+
+        <a href="/register" class="alternative">
+            <p>Créer un compte</p>
+        </a>
+
+        <a href="/forgotten_password" class="alternative">
+            <p>Mot de passe oublié</p>
+        </a>
+
+    </div>
+
+</body>
+</html>

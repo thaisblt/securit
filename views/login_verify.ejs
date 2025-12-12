@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>vérification du code</title>
+   <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="pages_log">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/securit_logo.png" alt="Logo Securit">
+        </a>
+
+        <p class="instruction" >
+            Vérifiez votre boite mail et tapez le code confirmation<br>
+        </p>
+        <form method='POST' action="/check_login_code">
+            <label>Code de confirmation <br>
+                <input type="text" name="code" placeholder="ex : 1234" required class="champs">
+            </label>
+                <input type="hidden" name="email" value="<%= email %>">
+                <input type="hidden" name="attempts" value="<%= attempts %>">
+
+            <p class="echec"><%= error_message %></p>
+
+            <input class="bouton" type="submit" value ="continuer">
+        </form>
+    </div>
+</body>
+</html>
