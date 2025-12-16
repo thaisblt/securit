@@ -2,7 +2,7 @@ module.exports = {
    apps : [
       {
          name: 'securit',
-         script: './src/app.js',
+         script: './app.js',
          watch: false,
          env: {
             NODE_ENV: 'production'
