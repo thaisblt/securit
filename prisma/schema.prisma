@@ -14,10 +14,32 @@ datasource db {
 }
 
 model User {
-   id          Int       @default(autoincrement()) @id
-   name        String
-   email       String    @unique
-   password    String
+  id          Int       @default(autoincrement()) @id
+  name        String
+  email       String    @unique
+  password    String
+  role        Role      @default(INSPECTOR)
 }
 
+model Company {
+  id           Int       @default(autoincrement()) @id
+  name         String
+  address      String
+}
 
+model Visit {
+  id           Int       @default(autoincrement()) @id
+  date         DateTime
+  report       String
+
+  company_id   Int
+  inspector_id Int
+
+  company      Company  @relation(fields: [company_id], references: [id])
+  inspector    User     @relation(fields: [inspector_id], references: [id])
+}
+
+enum Role {
+  INSPECTOR
+  ADMIN
+}
