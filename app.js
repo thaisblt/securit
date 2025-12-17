@@ -6,6 +6,7 @@ import {sendMail} from './mail.mjs'
 import { getRandomCode } from './utilities.mjs';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
+import { name } from 'ejs';
 
 
 const app = express();
@@ -270,7 +271,7 @@ app.get('/visit_list', async (req, res) => {
          date: 'desc'
       }
    });
-   res.render('visit_list', {name: req.user.name, visites});
+   res.render('visit_list', {name: req.user.name, role: req.user.role, visites, activeTab: 'visits'});
 });
 
 app.get('/new_visit', async (req, res) => {
@@ -300,8 +301,60 @@ app.post('/check_new_visit', async (req, res) => {
          inspector_id: req.user.id, 
       },
    });
-
+   res.redirect('/visit_list');
 });
+
+app.get('/companies_list', async (req, res) => {
+   if (!req.user || req.user.role !== 'ADMIN') {
+      return res.status(403).send('Accès interdit');
+   }
+
+   const companies = await prisma.Company.findMany({
+      include: {
+         visites: {
+            orderBy: { date: 'desc' },
+            take: 1
+         }
+      },
+      orderBy: {name: 'asc'}
+   });
+
+   // calcul date dernière visite
+   const companiesWithLastVisit = companies.map(c => ({
+      id: c.id,
+      name: c.name,
+      address: c.address,
+      lastVisit: c.visites[0]?.date || null
+   }));
+
+   res.render('companies_list', {name: req.user.name, role: req.user.role, companies: companiesWithLastVisit, activeTab: 'companies'});
+});
+
+app.get('/new_company', (req, res) => {
+   if (!req.user || req.user.role !== 'ADMIN') {
+      return res.status(403).send("Accès interdit");
+   }
+
+   res.render('new_company', {
+      name: req.user.name,
+      user: req.user
+   });
+});
+
+app.post('/check_new_company', async (req, res) => {
+   if (!req.user || req.user.role !== 'ADMIN') {
+      return res.status(403).send("Accès interdit");
+   }
+
+   const { name, address } = req.body;
+
+   await prisma.Company.create({
+      data: { name, address }
+   });
+
+   res.redirect('/companies_list');
+});
+
 
 app.post('/logout', (req, res) => {
    res.clearCookie('session_token');

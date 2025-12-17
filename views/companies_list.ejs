@@ -38,42 +38,45 @@
     </nav>
     <% } %>
 
-
     <div class="search">
         <input
             type="search"
             id="search"
             name="search"
-            placeholder="Rechercher une visite..."
+            placeholder="Rechercher une entreprise..."
         />
     </div>
 
 
     <main class="page-content">
         <div class="page-header">
-            <h2>Visites</h2>
-            <a href="/new_visit" class="btn-add">＋ Nouvelle visite</a>
+            <h2>Entreprises</h2>
+            <a href="/new_company" class="btn-add">＋ Nouvelle entreprise</a>
         </div>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Entreprise</th>
-                    <th>Inspecteur</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Dernière visite</th>
                 </tr>
             </thead>
             <tbody>
-                <% if (visites.length === 0) { %>
+                <% if (companies.length === 0) { %>
                     <tr>
-                        <td colspan="3" class="empty">Aucune visite enregistrée</td>
+                        <td colspan="3" class="empty">Aucune entreprise enregistrée</td>
                     </tr>
                 <% } else { %>
-                    <% visites.forEach(visit => { %>
+                    <% companies.forEach(company => { %>
                         <tr>
-                            <td><%= new Date(visit.date).toLocaleDateString() %></td>
-                            <td><%= visit.company.name %></td>
-                            <td><%= visit.inspector.name %></td>
+                            <td><%= company.name %></td>
+                            <td><%= company.address %></td>
+                            <td>
+                                <%= company.lastVisit 
+                                    ? new Date(company.lastVisit).toLocaleDateString() 
+                                    : '—' %>
+                            </td>
                         </tr>
                     <% }) %>
                 <% } %>
