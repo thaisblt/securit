@@ -20,7 +20,7 @@ model User {
   password    String
   role        Role      @default(INSPECTOR)
 
-  visites     Visite[]
+  visites     Visit[]
 }
 
 model Company {
@@ -28,7 +28,7 @@ model Company {
   name         String
   address      String
 
-  visites      Visite[]
+  visites      Visit[]
 }
 
 model Visit {
