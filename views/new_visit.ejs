@@ -22,23 +22,40 @@
         </a>
     </header><br>
 
-    <div>    <!-- Block en ligne sous le header  avec la flèche qui indique retour-->
+    <div>    <!-- Block en ligne sous le header  avec la flèche qui indique retour--> </div>
 
     <p class="titres_pages">
         Nouvelle visite
     </p>
 
-    <form method='POST' action="/check_new_visit">
-    <div>
-        <!-- Date -->
+    <form method="POST" action="/check_new_visit">
 
-    </div>
+        <label>Date<br>
+            <input type="date" name="date" required class="champs">
+        </label>
 
-    <div>
-        <!-- tableau date et entreprise avec icone pour modifier -->
+        <label>Entreprise<br></label>
+        <select name="company_id" required class="champs">
+            <option value="">-- Choisir une entreprise --</option>
+            <option value="1">Entreprise A</option>
+            <option value="2">Entreprise B</option>
+        </select>
 
-    </div>
+        <label>Compte-rendu<br>
+            <textarea
+                name="report"
+                rows="8"
+                maxlength="500"
+                placeholder="Décrivez la visite..."
+                required
+                class="champs"
+            ></textarea>
+        </label>
+
+        <input class="bouton" type="submit" value="Créer la visite">
+
     </form>
+
     
 </body>
 </html>
