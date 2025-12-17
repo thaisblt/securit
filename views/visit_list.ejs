@@ -17,32 +17,56 @@
         <a href="/visit_list">
             <img class="img_logo" src="/images/securit_logo.png" alt="Logo Securit">
         </a>
-        <a href="/">
-            <img class="icone_deconnexion" src="/images/icone_fleche_deco.png" alt="Logo Deconnexion">
-        </a>
+        <form action="/logout" method="POST" class="logout-form">
+            <button type="submit" class="button logout-button">
+                Déconnexion
+            </button>
+        </form>
+
     </header><br>
 
-
-    <p class="titres_pages">
-        Visites
-    </p>
-
-    <div>    <!-- Block en ligne sous le header -->
-
-        <!-- Barre de recherche -->
-        <input type="search" id="search" name="search" />
-
-        <!-- + pour ajouter inspection -->
-        <a href="/new_visit">
-            <img class="logo_plus" src="/images/logo_plus.png" alt="Ajouter">
-        </a>
-
+    <div class="search">
+        <input
+            type="search"
+            id="search"
+            name="search"
+            placeholder="Rechercher une visite..."
+        />
     </div>
 
-    <div>
-        <!-- tableau date et entreprise avec icone pour modifier -->
 
-    </div>
+    <main class="page-content">
+        <div class="page-header">
+            <h2>Visites</h2>
+            <a href="/new_visit" class="btn-add">＋ Nouvelle visite</a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Entreprise</th>
+                    <th>Inspecteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (visites.length === 0) { %>
+                    <tr>
+                        <td colspan="3" class="empty">Aucune visite enregistrée</td>
+                    </tr>
+                <% } else { %>
+                    <% visites.forEach(visit => { %>
+                        <tr>
+                            <td><%= new Date(visit.date).toLocaleDateString() %></td>
+                            <td><%= visit.company.name %></td>
+                            <td><%= visit.inspector.name %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </main>
+
     
 </body>
 </html>

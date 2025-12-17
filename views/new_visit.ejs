@@ -34,9 +34,11 @@
                 <label>Entreprise</label>
                 <select name="company_id" required class="champs">
                     <option value="">-- Choisir une entreprise --</option>
-                    <option value="1">Entreprise A</option>
-                    <option value="2">Entreprise B</option>
+                    <% companies.forEach(company => { %>
+                        <option value="<%= company.id %>"><%= company.name %></option>
+                    <% }) %>
                 </select>
+
 
                 <label>Compte-rendu</label>
                 <textarea

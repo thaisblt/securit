@@ -99,7 +99,7 @@ app.post('/check_login_code', async (req, res) => {
                process.env.SECRET
             );
             res.cookie('session_token', token, {httpOnly: true, maxAge: 3600 * 1000});
-            res.render('visit_list', {name}); // Doit amener vers l'accueil -> authentifiaction ok -> changer page de retour
+            res.redirect('/visit_list');
          } else {
             attempts ++;
             res.render('login_verify', {email, error_message:"Code incorrecte", attempts});
@@ -251,23 +251,37 @@ app.use(async (req, res, next) => {
       next();
 
    } catch(err) {
-      res.status(403).send("Reconnectez vous !");
+      res.status(403).send("Vous n'êtes plus connecté !");
    }
 });
 
 /* Page d'accueil après connexion : Dashboard */
-app.get('/visit_list', (req, res) => {
+app.get('/visit_list', async (req, res) => {
    if (!req.user) {
       res.redirect('/');
    }
-   res.render('visit_list', {name: req.user.name});
+   // Récupérer toutes les visites avec les relations Company et User
+   const visites = await prisma.Visit.findMany({
+      include: {
+         company: true,
+         inspector: true
+      },
+      orderBy: {
+         date: 'desc'
+      }
+   });
+   res.render('visit_list', {name: req.user.name, visites});
 });
 
-app.get('/new_visit', (req, res) => {
+app.get('/new_visit', async (req, res) => {
    if (!req.user) {
       res.redirect('/');
    }
-   res.render('new_visit', {name: req.user.name});
+   // Récupérer toutes les entreprises
+   const companies = await prisma.Company.findMany({
+      orderBy: { name: 'asc' } // facultatif
+   });
+   res.render('new_visit', {name: req.user.name, companies});
 });
 
 app.post('/check_new_visit', async (req, res) => {
@@ -278,7 +292,7 @@ app.post('/check_new_visit', async (req, res) => {
    console.log(report);
 
    // add visit with prisma 
-   await prisma.Visite.create({
+   await prisma.Visit.create({
       data: {
          date: new Date(date),
          report,
@@ -287,6 +301,11 @@ app.post('/check_new_visit', async (req, res) => {
       },
    });
 
+});
+
+app.post('/logout', (req, res) => {
+   res.clearCookie('session_token');
+   res.redirect('/');
 });
 
 const PORT = process.env.PORT || 3000;
