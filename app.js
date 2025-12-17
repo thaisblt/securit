@@ -95,7 +95,7 @@ app.post('/check_login_code', async (req, res) => {
       if (req.cookies.codeWait) {
          if (code === email2code[email]) { 
             const token = jwt.sign(
-               { sub: user.user_id },
+               { sub: user.id },
                process.env.SECRET
             );
             res.cookie('session_token', token, {httpOnly: true, maxAge: 3600 * 1000});
@@ -245,7 +245,7 @@ app.use(async (req, res, next) => {
       const token = req.cookies?.session_token;
       const payload = jwt.verify(token, process.env.SECRET);
       const user = await prisma.User.findUnique({
-         where: {user_id:payload.sub}
+         where: {id:payload.sub}
       });
       req.user = user;
       next();
@@ -270,7 +270,7 @@ app.get('/new_visit', (req, res) => {
    res.render('new_visit', {name: req.user.name});
 });
 
-app.post('check_new_visit', async (req, res) => {
+app.post('/check_new_visit', async (req, res) => {
    const { date, company_id, report } = req.body;
 
    console.log(date);
@@ -283,7 +283,7 @@ app.post('check_new_visit', async (req, res) => {
          date: new Date(date),
          report,
          company_id: Number(company_id),
-         inspector_id: req.session_token.user_Id, 
+         inspector_id: req.user.id, 
       },
    });
 
