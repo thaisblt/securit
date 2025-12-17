@@ -189,10 +189,103 @@ body {
     font-size: 15px;
 }
 
-/* Instructions à suivre */
-.titres_pages {
+
+/* Bouton input nouvelle visite*/
+.button {
+    padding: 12px;
+    background-color: #575DFB; /* couleur principale */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background-color: #4347c9;
+}
+
+
+/* mise ne page new_visit */
+/* Form page wrapper */
+.form-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    background-color: #f2f2f7; /* fond clair derrière le formulaire */
+    min-height: 100vh;
+}
+
+/* Form container */
+.form-container {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form title */
+.form-container h2.titres_pages {
+    text-align: center;
     margin-bottom: 25px;
-    margin-left: 100px;
-    font-size: medium;
-    font-weight: bold;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Labels */
+.form-container label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    display: block;
+    color: #444;
+}
+
+/* Inputs, selects, textarea */
+.form-container input.champs,
+.form-container select.champs,
+.form-container textarea.champs {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-container input.champs:focus,
+.form-container select.champs:focus,
+.form-container textarea.champs:focus {
+    border-color: #575DFB;
+    box-shadow: 0 0 5px #575DFB66;
+    outline: none;
+}
+
+/* Bouton */
+.form-container .bouton {
+    width: 100%;
+    padding: 12px;
+    background-color: #575DFB;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container .bouton:hover {
+    background-color: #4347c9;
+}
+
+/* Placeholder textarea */
+textarea.champs::placeholder {
+    color: #999;
+    font-style: italic;
 }

@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Dashboard</title>
+   <title>Nouvelle visite</title>
    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -20,43 +20,38 @@
         <a href="/">
             <img class="icone_deconnexion" src="/images/icone_fleche_deco.png" alt="Logo Deconnexion">
         </a>
-    </header><br>
+    </header>
 
-    <div>    <!-- Block en ligne sous le header  avec la flèche qui indique retour--> </div>
+    <main class="form-page">
+        <div class="form-container">
+            <h2 class="titres_pages">Nouvelle visite</h2>
 
-    <p class="titres_pages">
-        Nouvelle visite
-    </p>
+            <form method="POST" action="/check_new_visit">
 
-    <form method="POST" action="/check_new_visit">
+                <label>Date</label>
+                <input type="date" name="date" required class="champs">
 
-        <label>Date<br>
-            <input type="date" name="date" required class="champs">
-        </label>
+                <label>Entreprise</label>
+                <select name="company_id" required class="champs">
+                    <option value="">-- Choisir une entreprise --</option>
+                    <option value="1">Entreprise A</option>
+                    <option value="2">Entreprise B</option>
+                </select>
 
-        <label>Entreprise<br>
-            <select name="company_id" required class="champs">
-                <option value="">-- Choisir une entreprise --</option>
-                <option value="1">Entreprise A</option>
-                <option value="2">Entreprise B</option>
-            </select>
-        </label>
+                <label>Compte-rendu</label>
+                <textarea
+                    name="report"
+                    rows="8"
+                    maxlength="500"
+                    placeholder="Décrivez la visite..."
+                    required
+                    class="champs"
+                ></textarea>
 
-        <label>Compte-rendu<br>
-            <textarea
-                name="report"
-                rows="8"
-                maxlength="500"
-                placeholder="Décrivez la visite..."
-                required
-                class="champs"
-            ></textarea>
-        </label>
-
-        <input class="bouton" type="submit" value="Créer la visite">
-
-    </form>
-
+                <input class="bouton" type="submit" value="Créer la visite">
+            </form>
+        </div>
+    </main>
     
 </body>
 </html>
