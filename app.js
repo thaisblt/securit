@@ -262,6 +262,8 @@ app.get('/visit_list', async (req, res) => {
       res.redirect('/');
    }
    // Récupérer toutes les visites avec les relations Company et User
+   // ajout de la recherche
+   
    const visites = await prisma.Visit.findMany({
       include: {
          company: true,
@@ -272,6 +274,35 @@ app.get('/visit_list', async (req, res) => {
       }
    });
    res.render('visit_list', {name: req.user.name, role: req.user.role, visites, activeTab: 'visits'});
+});
+
+app.post('/visit_search', async (req, res) => {
+   // recuperer la recherche voulu
+   const search = req.body.search;
+
+   // filtrer sur la bdd
+   const visites = await prisma.Visit.findMany({
+      where: {
+         company: {
+            name: {
+               contains: search,
+               mode: 'insensitive'
+            }
+         }
+      },
+      include: {
+         company: true,
+         inspector: true
+      },
+      orderBy: {
+         date: 'desc'
+      }
+
+   });
+
+   // renvoyer vers visite_list uniquement les visites qui contiennent search
+   res.render('visit_list', {name: req.user.name, role: req.user.role, visites, activeTab: 'visits'});
+
 });
 
 app.get('/new_visit', async (req, res) => {
@@ -330,15 +361,45 @@ app.get('/companies_list', async (req, res) => {
    res.render('companies_list', {name: req.user.name, role: req.user.role, companies: companiesWithLastVisit, activeTab: 'companies'});
 });
 
+app.post('/companies_search', async (req, res) => {
+   // recuperer la recherche voulu
+   const search = req.body.search;
+
+   // filtrer sur la bdd
+   const companies = await prisma.Company.findMany({
+      where: {
+         name: {
+            contains: search,
+            mode: 'insensitive'
+         }
+      },
+      include: {
+         visites: {
+            orderBy: { date: 'desc' },
+            take: 1
+         }
+      },
+      orderBy: {name: 'asc'}
+   });
+
+   // calcul date dernière visite
+   const companiesWithLastVisit = companies.map(c => ({
+      id: c.id,
+      name: c.name,
+      address: c.address,
+      lastVisit: c.visites[0]?.date || null
+   }));
+
+   // renvoyer vers companies_list uniquement les visites qui contiennent search
+   res.render('companies_list', {name: req.user.name, role: req.user.role, companies: companiesWithLastVisit, activeTab: 'companies'});
+});
+
 app.get('/new_company', (req, res) => {
    if (!req.user || req.user.role !== 'ADMIN') {
       return res.status(403).send("Accès interdit");
    }
 
-   res.render('new_company', {
-      name: req.user.name,
-      user: req.user
-   });
+   res.render('new_company', {name: req.user.name, user: req.user});
 });
 
 app.post('/check_new_company', async (req, res) => {
@@ -355,6 +416,27 @@ app.post('/check_new_company', async (req, res) => {
    res.redirect('/companies_list');
 });
 
+app.get('/visit_detail/:id', async (req, res) => {
+   if (!req.user) {
+      return res.redirect('/');
+   }
+
+   const visitId = Number(req.params.id)
+
+   const visit = await prisma.Visit.findUnique({
+      where: { id: visitId },
+      include: {
+         company: true,
+         inspector: true
+      }
+   });
+
+   if (!visit) {
+      return res.status(403).send("Visite indisponible");
+   }
+
+   res.render('visit_detail', {name: req.user.name, visit});
+});
 
 app.post('/logout', (req, res) => {
    res.clearCookie('session_token');

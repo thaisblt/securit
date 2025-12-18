@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Nouvelle visite</title>
+   <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <div class="avatar">
+            <a href="/visit_list">
+                <img class="img_header" src="/images/avatar.jpg" alt="Avatar Lambda">
+            </a>
+            <p class="info_affichee" ><%= name %></p>
+        </div>
+        <a href="/visit_list">
+            <img class="img_logo" src="/images/securit_logo.png" alt="Logo Securit">
+        </a>
+        <form action="/logout" method="POST" class="logout-form">
+            <button type="submit" class="button logout-button">
+                Déconnexion
+            </button>
+        </form>
+    </header>
+
+    <main class="form-page">
+        <div class="form-container">
+            <h2 class="titres_pages">Détails de la visite</h2>
+
+            <label>Date</label>
+            <div class="report-box"><p><%= new Date(visit.date).toLocaleDateString() %></p></div>
+
+            <label>Entreprise</label>
+            <div class="report-box"><p><%= visit.company.name %></p></div>
+                
+            <label>Compte-rendu</label>
+            <div class="report-box">
+                <p><%= visit.report %></p>
+            </div>
+
+            <a href="/visit_list">
+                <button class="btn-add">Retour</button>
+            </a>
+
+        </div>
+    </main>
+    
+</body>
+</html>

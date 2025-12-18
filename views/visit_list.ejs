@@ -38,7 +38,7 @@
     </nav>
     <% } %>
 
-
+    <form method="POST" action="/visit_search">
     <div class="search">
         <input
             type="search"
@@ -47,6 +47,7 @@
             placeholder="Rechercher une visite..."
         />
     </div>
+    </form>
 
 
     <main class="page-content">
@@ -61,6 +62,7 @@
                     <th>Date</th>
                     <th>Entreprise</th>
                     <th>Inspecteur</th>
+                    <th>Détails</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +76,8 @@
                             <td><%= new Date(visit.date).toLocaleDateString() %></td>
                             <td><%= visit.company.name %></td>
                             <td><%= visit.inspector.name %></td>
+                            <td><a href="/visit_detail/<%= visit.id %>" class="bouton">Afficher</a></td>
+
                         </tr>
                     <% }) %>
                 <% } %>

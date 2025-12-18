@@ -38,14 +38,16 @@
     </nav>
     <% } %>
 
-    <div class="search">
-        <input
-            type="search"
-            id="search"
-            name="search"
-            placeholder="Rechercher une entreprise..."
-        />
-    </div>
+    <form method="POST" action="/companies_search">
+        <div class="search">
+            <input
+                type="search"
+                id="search"
+                name="search"
+                placeholder="Rechercher une entreprise..."
+            />
+        </div>
+    </form>
 
 
     <main class="page-content">
